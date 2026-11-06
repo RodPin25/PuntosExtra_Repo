@@ -2,10 +2,12 @@ import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
+import VistaProveedor from './components/VistaProveedor'
+import VistaArticulos from './components/VistaArticulos'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [moduloActivo, setModuloActivo] = useState('proveedores')
 
   return (
     <>
@@ -15,19 +17,26 @@ function App() {
           <img src={reactLogo} className="framework" alt="React logo" />
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+
+        {/* Selector de Módulo */}
+        <div className="modulo-selector">
+          <button
+            className={`btn-modulo ${moduloActivo === 'proveedores' ? 'active' : ''}`}
+            onClick={() => setModuloActivo('proveedores')}
+          >
+            🏢 Proveedores
+          </button>
+          <button
+            className={`btn-modulo ${moduloActivo === 'articulos' ? 'active' : ''}`}
+            onClick={() => setModuloActivo('articulos')}
+          >
+            📦 Artículos
+          </button>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+
+        <div>
+          {moduloActivo === 'proveedores' ? <VistaProveedor /> : <VistaArticulos />}
+        </div>
       </section>
 
       <div className="ticks"></div>
