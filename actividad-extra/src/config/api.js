@@ -27,11 +27,72 @@ export const obtenerProveedorPorId = async (id) => {
 
 
 // Setters
-export const crearProveedor = async (proveedor) => {
+export const crearProveedor = async (nombre, domicilio, poblacion, cPostal, provincia, telefono, email) => {
     try{
-        const response = await axios.post(`${BASE_API_URL}/proveedores`, proveedor);
-        return response.data; 
+        const url = `${BASE_API_URL}/proveedores/crear`;
+        const payload = {
+            nombre: nombre,
+            domicilio: domicilio,
+            poblacion: poblacion,
+            cPostal: cPostal,
+            provincia: provincia,
+            telefono: telefono,
+            email: email
+        };
+        const response = await axios.post(`${BASE_API_URL}/proveedores`, payload);
+        return response.data;
     } catch(error){
         console.error("Error al crear proveedor:", error);
+    }
+}
+
+//Updaters
+export const actualizarProveedor = async (id,nombre, domiclio, poblacion, cPostal, provincia,telefono, email) => {
+    try{
+        const url = `${BASE_API_URL}/proveedores/${id}`;
+        const payload = { 
+            nombre: nombre,
+            domicilio: domiclio,
+            poblacion: poblacion,
+            cPostal: cPostal,
+            provincia: provincia,
+            telefono: telefono,
+            email: email
+        };
+        const response = await axios.put(url, payload);
+        return response.data;
+    } catch(error){
+        console.error("Error al actualizar proveedor:", error);
+    }
+}
+
+// Patchers
+export const patchProveedor = async (id,nombre, domicilio, poblacion, cPostal, provincia, telefono, email) => {
+    try{
+        const url = `${BASE_API_URL}/proveedores/${id}`;
+        const payload = { 
+            nombre: nombre,
+            domicilio: domicilio,
+            poblacion: poblacion,
+            cPostal: cPostal,
+            provincia: provincia,
+            telefono: telefono,
+            email: email
+        };
+        const response = await axios.patch(url, payload);
+        return response.data;
+    } catch(error){
+        console.error("Error al actualizar proveedor:",error);
+    }
+}
+
+// Deleters
+export const eliminarProveedor = async(id) => {
+    try{
+        const url = `${BASE_API_URL}/proveedores/${id}`;
+        const response = await axios.delete(url);
+        return response.data;
+    } catch(error){
+        console.error("Error al eliminar proveedor:", error);
     }
 }
